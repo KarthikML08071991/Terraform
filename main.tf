@@ -1,26 +1,11 @@
-provider "aws"{
+provider "aws" {
     region = "ap-south-1"
 }
 
-resource "aws_vpc" "terraform-vpc1"{
-    cidr_block = "10.0.0.0/16"
+resource "aws_instance" "ec2" {
+    ami = "ami-0c6615d1e95c98aca"
+    instance_type = "t2.micro"
     tags = {
-        Name = var.inputname
-        Department = var.vpc_tags[0]
-        Budget = var.vpc_tags[1]
+        Name = "Udemy_Terraform_EC2"
     }
-} 
-
-variable "inputname" {
-    type = string
-    description = "Set a name for the VPC: " 
-}
-
-variable "vpc_tags" {
-    type = list(string)
-    default = ["Production", "Unlimited"]
-}
-
-output "vpc_id" {
-    value = aws_vpc.terraform-vpc1.id
 }
